@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ambient TV</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="stage">
+    <section class="clock">
+      <div id="time" class="time">--:--</div>
+      <div id="date" class="date"></div>
+      <div id="greeting" class="greeting"></div>
+    </section>
+
+    <section class="weather" id="weather">
+      <div class="now">
+        <span id="w-icon" class="w-icon"></span>
+        <span id="w-temp" class="w-temp">--°</span>
+      </div>
+      <div id="w-desc" class="w-desc">Loading weather…</div>
+      <div id="w-days" class="w-days"></div>
+    </section>
+
+    <section class="reminders">
+      <h2>Reminders</h2>
+      <ul id="reminder-list"></ul>
+    </section>
+  </main>
+
+  <div id="hint" class="hint">Press <b>OK</b> to add reminders or change settings</div>
+
+  <dialog id="panel">
+    <form id="add-form" class="row">
+      <input id="r-text" placeholder="New reminder" autocomplete="off" required>
+      <input id="r-time" type="time" aria-label="Time (optional)">
+      <button type="submit">Add</button>
+    </form>
+    <ul id="edit-list"></ul>
+    <form id="settings-form" class="row">
+      <input id="s-city" placeholder="City for weather" autocomplete="off">
+      <select id="s-units" aria-label="Units">
+        <option value="celsius">°C</option>
+        <option value="fahrenheit">°F</option>
+      </select>
+      <button type="submit">Save</button>
+    </form>
+    <p id="s-status" class="status"></p>
+    <button id="close" type="button">Close</button>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

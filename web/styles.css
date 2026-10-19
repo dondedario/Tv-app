@@ -1,0 +1,133 @@
+:root {
+  --fg: #f4f1ea;
+  --muted: rgba(244, 241, 234, 0.6);
+  --accent: #ffcf70;
+  --card: rgba(255, 255, 255, 0.07);
+  --sky-top: #0b1a33;
+  --sky-bottom: #1d2f4f;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  cursor: none;
+  color: var(--fg);
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Sized from the viewport so it reads the same on any TV resolution. */
+  font-size: 1.6vh;
+  background: linear-gradient(160deg, var(--sky-top), var(--sky-bottom));
+  transition: background 60s linear;
+}
+
+#stage {
+  position: absolute;
+  inset: 6vh 6vw;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 4vh 4vw;
+  /* Slow drift to avoid burn-in on OLED panels; offset is set from app.js. */
+  transition: transform 20s ease-in-out;
+}
+
+.time {
+  font-size: 13em;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.time .period { font-size: 0.25em; font-weight: 400; margin-left: 0.3em; color: var(--muted); }
+.date { font-size: 3em; color: var(--muted); margin-top: 1vh; }
+.greeting { font-size: 2.2em; color: var(--accent); margin-top: 2vh; }
+
+.weather { justify-self: end; text-align: right; }
+.now { display: flex; align-items: center; justify-content: flex-end; gap: 1vw; }
+.w-icon { font-size: 7em; }
+.w-temp { font-size: 8em; font-weight: 200; }
+.w-desc { font-size: 2.2em; color: var(--muted); }
+.w-days { display: flex; justify-content: flex-end; gap: 1.2vw; margin-top: 3vh; }
+.day {
+  background: var(--card);
+  border-radius: 1.5vh;
+  padding: 1.5vh 1.2vw;
+  text-align: center;
+  min-width: 6vw;
+}
+.day .d-name { color: var(--muted); font-size: 1.6em; }
+.day .d-icon { font-size: 3em; margin: 0.5vh 0; }
+.day .d-range { font-size: 1.6em; }
+
+.reminders { grid-column: 1 / -1; }
+.reminders h2 {
+  font-size: 1.8em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin: 0 0 1.5vh;
+}
+#reminder-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5vh 1.5vw;
+}
+#reminder-list li {
+  background: var(--card);
+  border-radius: 1.5vh;
+  padding: 1.5vh 1.5vw;
+  font-size: 2.4em;
+}
+#reminder-list li .r-when { color: var(--muted); margin-right: 0.6em; }
+#reminder-list li.due { background: rgba(255, 207, 112, 0.18); }
+#reminder-list li.due .r-when { color: var(--accent); }
+#reminder-list li.empty { background: none; color: var(--muted); padding-left: 0; }
+
+.hint {
+  position: fixed;
+  bottom: 2vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.5em;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 1s;
+}
+.hint.show { opacity: 1; }
+
+dialog {
+  width: min(70vw, 1100px);
+  border: none;
+  border-radius: 2vh;
+  padding: 3vh 2.5vw;
+  background: #15213a;
+  color: var(--fg);
+  font-size: 2em;
+}
+dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
+.row { display: flex; gap: 1vw; margin-bottom: 2vh; }
+.row input:not([type="time"]) { flex: 1; }
+input, select, button {
+  font: inherit;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.3vh solid transparent;
+  border-radius: 1vh;
+  padding: 1vh 1vw;
+}
+button { cursor: pointer; }
+/* Big, obvious focus ring for navigating with a remote. */
+:focus { outline: none; border-color: var(--accent); background: rgba(255, 207, 112, 0.15); }
+#edit-list { list-style: none; padding: 0; margin: 0 0 2vh; }
+#edit-list li { display: flex; align-items: center; gap: 1vw; margin-bottom: 1vh; }
+#edit-list li span { flex: 1; }
+.status { color: var(--muted); min-height: 1.2em; margin: 0 0 2vh; }
